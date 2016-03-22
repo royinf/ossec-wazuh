@@ -1,6 +1,18 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [v1.0.4.tcp] - 2016-03-11
+
+### Added
+
+- Implementation of TCP-based remote communication.
+  - Recovering lost connections, with host-name updating.
+  - Logging when a new agent is connected.
+
+### Fixed
+
+- Fixed Windows agent compilation issue.
+
 ## [v1.0.4] - 2016-02-24
 ​
 ### Added
