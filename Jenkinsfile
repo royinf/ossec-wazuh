@@ -9,7 +9,7 @@
  * Foundation.
  */
 
-node ("ubuntuts") {
+node  {
     
     //Stage checkout source
     stage name: 'Checkout source', concurrency: 1
