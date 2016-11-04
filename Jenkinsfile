@@ -20,8 +20,8 @@ node {
     stage name: 'Unit tests', concurrency: 1
     
     dir ('src') { 
-       // sh 'sudo make --warn-undefined-variables test_valgrind'
-      //  sh 'sudo make clean'
+        sh 'sudo make --warn-undefined-variables test_valgrind'
+        sh 'sudo make clean'
     }
     
     //Stage code scanners
