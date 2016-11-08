@@ -18,7 +18,7 @@ def check_source(label){
     if(label != 'centos-7-slave'){
         sh 'sudo apt-get update'
     }else{
-        sh 'yum update'
+        sh 'sudo yum -y update'
     }
 }
 
