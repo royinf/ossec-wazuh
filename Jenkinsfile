@@ -20,10 +20,10 @@ def stage1(){
 }
 
 def stage2(){
-    sh 'cd src'
-    sh 'ls -l'
-    sh 'sudo make --warn-undefined-variables test_valgrind'
-    sh 'sudo make clean'
+    dir('src'){
+        sh 'sudo make --warn-undefined-variables test_valgrind'
+        sh 'sudo make clean'
+    }
 }
 
 for (x in labels) {
