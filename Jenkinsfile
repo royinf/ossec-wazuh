@@ -98,6 +98,18 @@ for (x in labels) {
             stage ('Unit Tests'){
                 unit_tests(label)
             }
+            stage ('Standard Compilations'){
+                standard_compilations(label)
+            }
+            stage ('Unit Tests'){
+                rule_tests(label)
+            }
+            stage ('Advanced Compilations'){
+                advanced_compilations(label)
+            }
+            stage ('Windows Compilation'){
+                windows_compilation(label)
+            }
         }
     }
 }
