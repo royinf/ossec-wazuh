@@ -10,16 +10,17 @@
  */
 
 
-def labels = ['ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'centos-7-slave', 'debian-8-slave', 'debian-7-slave']
+def labels = ['centos-7-slave']//,'ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'debian-8-slave', 'debian-7-slave']
 
 
-def stage1(){
+def stage1(label){
     checkout scm
-    sh 'sudo apt-get update'
-    sh 'ls -l'
+    if(label != 'centos-7-slave'){
+        sh 'sudo apt-get update'
+    }
 }
 
-def stage2(){
+def stage2(label){
     dir('src'){
         sh 'sudo make --warn-undefined-variables test_valgrind'
         sh 'sudo make clean'
@@ -32,10 +33,10 @@ for (x in labels) {
     stage (label){
         node(label) {
             stage ('Checkout source'){
-                stage1()
+                stage1(label)
             }
             stage ('Unit Tests'){
-                stage2()
+                stage2(label)
             }
         }
     }
