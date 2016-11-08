@@ -13,11 +13,11 @@
 def labels = ['ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'centos-7-slave', 'debian-8-slave', 'debian-7-slave']
 
 
-def stage1{
+def stage1(){
     checkout scm
 }
 
-def stage2{
+def stage2(){
     sh 'cd src'
     sh 'sudo make --warn-undefined-variables test_valgrind'
     sh 'sudo make clean'
@@ -26,12 +26,14 @@ def stage2{
 for (x in labels) {
     def label = x
 
-    node(label) {
-        stage ('Checkout source'){
-            stage1()
-        }
-        stage ('Unit Tests'){
-            stage2()
+    stage (label){
+        node(label) {
+            stage ('Checkout source'){
+                stage1()
+            }
+            stage ('Unit Tests'){
+                stage2()
+            }
         }
     }
 }
