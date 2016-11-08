@@ -1,3 +1,6 @@
+#!groovy
+
+
 /**
  * Jenkinsfile for OSSEC Wazuh
  * Copyright (C) 2016 Wazuh Inc.
@@ -9,73 +12,29 @@
  * Foundation.
  */
 
-node  {
-    
-    //Stage checkout source
-    stage name: 'Checkout source', concurrency: 1
-    
+
+def labels = ['ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'centos-7-slave', 'debian-8-slave', 'debian-7-slave']
+
+
+def check_source{
     checkout scm
-    
-    //Stage unit tests
-    stage name: 'Unit tests', concurrency: 1
-    
-    dir ('src') { 
-        sh 'sudo make --warn-undefined-variables test_valgrind'
-        sh 'sudo make clean'
-    }
-    
-    //Stage code scanners
-    stage name: 'Code scanners', concurrency: 1
-    
-    dir ('src') {
-        
-    }
-    
-    //Stage standard ossec compilations
-    stage name: 'Standard OSSEC compilations', concurrency: 1 
-    
-    dir ('src') {
-        sh 'sudo make --warn-undefined-variables V=1 TARGET=agent install'
-        sh 'sudo make clean && sudo rm -rf /var/ossec/'
-        sh 'sudo make --warn-undefined-variables V=1 TARGET=server install'
-        sh 'sudo make clean'
-    }  
-    
-    //Stage rule tests
-    stage name: 'Rule tests', concurrency: 1 
-    
-    dir ('src') {
-        sh 'sudo cat /var/ossec/etc/ossec.conf'
-        sh 'sudo make V=1 TARGET=server test-rules'
-    }
-    
-    //Stage advanced ossec compilation
-    stage name: 'Advanced OSSEC compilations', concurrency: 1 
-    
-    dir ('src') {
-        sh 'sudo make --warn-undefined-variables V=1 TARGET=local install'
-        sh 'sudo make clean && sudo rm -rf /var/ossec/'
-        sh 'sudo make --warn-undefined-variables V=1 TARGET=hybrid install'
-        sh 'sudo make clean && sudo rm -rf /var/ossec/'
-    
-        def matrixOptionsX = ['DATABASE=none', 'DATABASE=pgsql', 'DATABASE=mysql']
-        def matrixOptionsY = ['USE_GEOIP=1', '']    
-        
-        
-        for (optionX in matrixOptionsX){
-            for (optionY in matrixOptionsY) {
-                sh 'sudo make --warn-undefined-variables V=1 TARGET=server '+optionX+' '+optionY+' install'
-                sh 'sudo make clean && sudo rm -rf /var/ossec/'
-            }
+}
+
+def unit_tests{
+    sh 'cd src'
+    sh 'sudo make --warn-undefined-variables test_valgrind'
+    sh 'sudo make clean'
+}
+
+for (x in labels) {
+    def label = x
+
+    node(label) {
+        stage ('Checkout source'){
+            check_source()
+        }
+        stage ('Unit Tests'){
+            unit_tests()
         }
     }
-    
-    //Stage windows compilation
-    stage name: 'Windows compilation', concurrency: 1
-    
-    dir ('src') {
-        sh 'sudo make --warn-undefined-variables TARGET=winagent'
-        sh 'sudo make clean && sudo rm -rf /var/ossec/'
-    }
-    
 }
