@@ -101,7 +101,7 @@ for (x in labels) {
             stage ('Standard Compilations'){
                 standard_compilations(label)
             }
-            stage ('Unit Tests'){
+            stage ('Rule Tests'){
                 rule_tests(label)
             }
             stage ('Advanced Compilations'){
