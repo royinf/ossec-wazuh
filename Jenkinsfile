@@ -16,7 +16,7 @@
 def labels = ['ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'centos-7-slave', 'debian-8-slave', 'debian-7-slave']
 
 
-def check_source{
+def checking_source{
     checkout scm
 }
 
@@ -31,7 +31,7 @@ for (x in labels) {
 
     node(label) {
         stage ('Checkout source'){
-            check_source()
+            checking_source()
         }
         stage ('Unit Tests'){
             unit_tests()
