@@ -64,7 +64,6 @@ def advanced_compilations(label){
         def matrixOptionsX = ['DATABASE=none', 'DATABASE=pgsql', 'DATABASE=mysql']
         def matrixOptionsY = ['USE_GEOIP=1', '']    
         
-        sh 'sudo apt-get -y install geoip-bin geoip-database libgeoip-dev libgeoip1 libpq-dev libpq5 libmysqlclient-dev'        
         
         for (optionX in matrixOptionsX){
             for (optionY in matrixOptionsY) {
@@ -80,7 +79,6 @@ def windows_compilation(label){
    if(label != 'centos-7-slave' && label != 'debian-7-slave'){
  
         dir ('src') {
-            sh 'sudo apt-get -y install aptitude && sudo aptitude -y install mingw-w64 nsis'
             sh 'sudo make --warn-undefined-variables TARGET=winagent'
             sh 'sudo make clean && sudo rm -rf /var/ossec/'
         }
