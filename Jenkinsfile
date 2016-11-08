@@ -15,6 +15,8 @@ def labels = ['ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'centos-7-slave', 'd
 
 def stage1(){
     checkout scm
+    sh 'sudo apt-get update'
+    sh 'ls -l'
 }
 
 def stage2(){
