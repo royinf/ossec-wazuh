@@ -78,7 +78,7 @@ def advanced_compilations(label){
 
 //Stage windows compilation
 def windows_compilation(label){ 
-   if(label != 'centos-7-slave' && label != 'debian-7-slave'){
+   if(label != 'debian-7-slave'){
  
         dir ('src') {
             sh 'sudo make --warn-undefined-variables TARGET=winagent'
