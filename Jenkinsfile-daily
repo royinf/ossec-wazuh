@@ -8,10 +8,10 @@
  * This program is a free software; you can redistribute it
  * and/or modify it under the terms of the GNU General Public
  * License (version 2) as published by the FSF - Free Software
- * Foundation.
+ * Foundation. 'ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'ubuntu-precise-slave', 'debian-jessie-slave', 'debian-wheezy-slave', 'centos-7-slave', 'centos-6-slave',
  */
 
-def labels = ['ubuntu-xenial-slave', 'ubuntu-trusty-slave', 'ubuntu-precise-slave', 'debian-jessie-slave', 'debian-wheezy-slave', 'centos-7-slave', 'centos-6-slave', 'centos-5-slave']
+def labels = [ 'centos-5-slave']
 
 //Stage checkout source
 def check_source(label){
