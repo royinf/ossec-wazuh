@@ -12,7 +12,7 @@
 
  */
 
-def labels = ['red-hat-7-slave']
+def labels = ['ubuntu-xenial-slave']//'red-hat-7-slave']
 //Stage checkout source
 def check_source(label){
     checkout scm
@@ -115,7 +115,7 @@ for (label in labels) {
             }
             
             stage ('Unit Tests'){
-               // unit_tests(label)
+                unit_tests(label)
             }
             
             stage ('Standard Compilations'){
