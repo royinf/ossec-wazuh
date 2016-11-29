@@ -208,7 +208,7 @@ endif # USE_PICVIZ
 
 ifneq (,$(filter ${USE_GEOIP},auto yes y Y 1))
 	DEFINES+=-DLIBGEOIP_ENABLED
-	OSSEC_LDFLAGS+=-lGeoIP
+	OSSEC_LDFLAGS+=-GeoIP
 endif # USE_GEOIP
 
 
